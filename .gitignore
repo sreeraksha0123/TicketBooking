@@ -1,0 +1,55 @@
+# ── Maven ──────────────────────────────────────────────────────
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ── Java ───────────────────────────────────────────────────────
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+# ── IDE ────────────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+.eclipse/
+.classpath
+.project
+.settings/
+*.factorypath
+.vscode/
+*.swp
+*~
+
+# ── OS ─────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── Docker volumes ─────────────────────────────────────────────
+pgdata/
+
+# ── Logs ───────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Env / Secrets ──────────────────────────────────────────────
+.env
+.env.local
+*.env
