@@ -453,39 +453,6 @@ try {
 
 ---
 
-## Interview Q&A
-
-**Q: Why use both `ReentrantLock` AND `SELECT FOR UPDATE`?**
-> `ReentrantLock` works within one JVM — fast, avoids DB round-trips for clear same-process conflicts. `SELECT FOR UPDATE` is the correctness guarantee that survives multi-instance deployments, JVM crashes between lock-acquire and DB write, and any JVM-level locking bug. Defence in depth.
-
-**Q: What happens if you forget `unlock()` in `finally`?**
-> Deadlock. Every subsequent thread trying to book that seat blocks indefinitely — no timeout, no recovery. The lock is held forever because the thread that acquired it crashed or returned without releasing.
-
-**Q: Why is SERIALIZABLE ~35% slower?**
-> SERIALIZABLE uses predicate locking — it locks not just rows but the *gaps* between them to prevent phantom reads. This creates more lock conflicts, more wait time, and more transaction rollbacks (serialization failures) that must be retried. The overhead grows with concurrency.
-
-**Q: Why `while()` not `if()` with `wait()`?**
-> Spurious wakeup — the JVM spec allows `wait()` to return without `notify()` being called. Using `if` would proceed assuming the condition is met, causing a race. Using `while` re-checks and re-waits if the condition is still false.
-
-**Q: What is the UNIQUE constraint on `bookings(seat_id)` for?**
-> It's the last-resort database-level guard. Even if all application locking fails, the DB will throw a unique-constraint violation before a double-booking can commit. It's a safety net, not the primary mechanism.
-
----
-
-## Resume Bullets
-
-```
-• Built a thread-safe seat reservation engine in Java using synchronized blocks and
-  ReentrantLock to eliminate race conditions across concurrent booking threads;
-  applied producer-consumer with wait/notify for request queuing.
-
-• Modelled seat inventory with SELECT FOR UPDATE row-level locking inside explicit
-  transactions; benchmarked SERIALIZABLE vs READ COMMITTED isolation and documented
-  the ~35% throughput trade-off.
-```
-
----
-
 ## License
 
 MIT — see [LICENSE](LICENSE).
